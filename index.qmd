@@ -23,6 +23,7 @@ with upward mobility in the US.
 ```{r}
 #| output: false
 
+# Instruction to not use using scientific numbers
 options(scipen = 999)
 
 # Loading the necessary packages
@@ -52,7 +53,7 @@ glimpse(mobility)
 ```{r}
 
 # Filtering NAs from the variable 'share_employed', calculating the mean by 
-# year and visualizing the average employment share over time 
+# year and visualizing the average employment share over time, with a line graph
 mobility |>
   filter(!is.na(share_employed)) |>
   group_by(year) |>
@@ -62,9 +63,6 @@ mobility |>
   ggplot(mapping = aes(x = year, y = mean_share_employed)) +
   geom_line(linewidth = 1) +
   geom_point(size = 2) +
-  scale_y_continuous(
-    labels = scales::label_percent()
-  ) +
   scale_x_continuous(
     breaks = 2014:2024
   ) +
@@ -72,8 +70,8 @@ mobility |>
     title = "Average Employment Share Across U.S. Counties",
     subtitle = "Unweighted mean county employment share, 2014-2024",    
     x = "Year", 
-    y = "Average employment share",
-    caption = "Source: Urban Institute, Upward Mobility Framework. No data available for 2020" 
+    y = "Average employment share (proportion)",
+    caption = "Source: Urban Institute, Upward Mobility Framework. No data available for 2020." 
   ) +
   theme_minimal()
 
@@ -97,7 +95,7 @@ average.
 ```{r}
 
 # Filtering for 2024 and non-missing pctl_income_50 values and visualizing
-# the distribution of household incomes across U.S. counties
+# the distribution of household incomes with a histogram
 mobility |>
   filter(year == 2024,
          !is.na(pctl_income_50)
@@ -134,7 +132,8 @@ opportunities.
 
 ```{r}
 
-#
+# Filtering for 2024 and non-missing 'shared_employed' and 'pctl_income_50' 
+# values, then visualizing their relationship 
 mobility |>
   filter(
     year == 2024,
@@ -142,17 +141,23 @@ mobility |>
     !is.na(pctl_income_50)
   ) |>
   ggplot(mapping = aes(x = share_employed, y = pctl_income_50)) +
-  geom_point(mapping= aes(size = population), alpha = 0.4) +
+  geom_point(mapping= aes(
+    size = population,
+    color = share_employed_quality,
+    shape = pctl_income_50_quality), 
+    alpha = 0.4) +
   geom_smooth(method = "lm") +
-  scale_x_continuous(
-    labels = scales::label_percent()
-  ) +
+  scale_size_continuous(
+    breaks = c(2500000, 5000000, 7500000)) +
   labs(
     title = "Employment and Household Income Across U.S. Counties",
     subtitle = "Employment-to-population ratio and 50th-percentile household income, 2024",
-    x = "Employment-to-population ratio (ages 25-54)",
+    x = "Employment-to-population ratio (ages 25-54, proportion)",
     y = "Household income at the 50th percentile (USD)",
-    caption = "Source: Urban Institute, Upward Mobility Framework" 
+    color = "Employment data quality",
+    shape = "Income data quality",
+    size = "County population",
+    caption = "Source: Urban Institute, Upward Mobility Framework." 
   ) +
   theme_minimal()
 
@@ -161,21 +166,55 @@ mobility |>
 **Interpretation:**
 The scatterplot highlights that in 2024 a positive relationship between 
 employment and household income exists across U.S. counties. Counties with 
-higher employment-to-population seem to have higher household incomes at the 
-50th percentile. Nevertheless, there is variation in household incomes when 
+higher employment-to-population ratios seem to have higher household incomes at 
+the 50th percentile. Nevertheless, there is variation in household incomes when 
 comparing counties with similar employment levels, thereby indicating that 
-solely employment cannot explain varying economic outcomes. While the 
-relationship cannot be interpreted as causal, it suggests that policies 
-targeting employment opportunities need to consider other local factors, that 
-may shape incomes. 
+solely employment cannot explain varying economic outcomes. Point size 
+represents county population, while color and shape indicate the data quality 
+of the employment and income measures. While the relationship cannot be 
+interpreted as causal, it suggests that policies targeting employment 
+opportunities need to consider other local factors, that may shape incomes. 
 
 
-## Visualization 4
+## Visualization 4 - Housing Affordability Across Income Levels
 ```{r}
 
+housing_longer <- pivot_longer(
+  data = mobility,
+  cols = c(
+    share_affordable_30_ami,
+    share_affordable_50_ami,
+    share_affordable_80_ami
+  ),
+  names_to = "ami_level",
+  values_to = "affordability"
+)
+
+housing_longer |>
+  filter(
+    year == 2024,
+    !is.na(affordability)
+  ) |>
+  group_by(ami_level) |>
+  summarize(
+    mean_affordability = mean(affordability)
+  ) |>
+  ggplot(mapping = aes(x = ami_level, y = mean_affordability, fill = ami_level)) +
+  geom_col() +
+  labs(
+    title = "Housing Affordability Across Income Levels",
+    subtitle = "Average county affordability ratio by AMI level, 2024",
+    x = "Area Median Income (AMI) level",
+    y = "Average housing affordability ratio",
+    fill = "AMI level",
+    caption = "Source: Urban Institute, Upward Mobility Framework."
+  ) + 
+  theme_minimal()
 ```
 
 **Interpretation:**
+The barplot shows the differences in the average housing affordability ratio across varying income levels in U.S. counties in 2024. The shown ratio is lowest for households at the 30% AMI level, increases at 50% AMI level, and slightly decreases at 80% AMI levels. This suggests rather than following the same pattern for all income groups, housing affordability conditions are different depending on household income levels. For instance, the lower ratio at 30% AMI level highlights that the lowest-income households are facing different housing affordability conditions than households at higher levels. For policymakers, these variations are crucial to determine policies aiming at improving access to affordable housing, while considering different income levels. 
+
 
 ## Conclusion 
-
+Overall, the visualizations highlight that economic opportunity varies greatly across U.S. counties and are impossible to be capture by one single indicator. While average employment has increased over the past years, great differences in household income remain across counties, and employment as an indicator cannot explain these differences alone. In addition, housing affordability conditions also highlighted variation across different income levels, hence adding another dimension for measuring and determine varying levels of economic opportunity for researchers and policymakers. Together, the visualizations underline the importance of considering a wide variety of local economic and social conditions when designing and passing policies aimed at improving upward mobility.
