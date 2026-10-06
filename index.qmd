@@ -1,6 +1,6 @@
 ---
-title: "Assignment04 - Global Economic Development"
-subtitle: "Economic Growth, Living Standard, and Development Across Countries"
+title: "Assignment04 - Economic Opportunity and Upward Mobility in the United States"
+subtitle: "Exploring Economic and Social Conditions Across the U.S. Counties"
 author: "Jonas Wenner (jw2558)"
 format: 
   html:
@@ -14,6 +14,30 @@ execute:
 ## Data
 
 Data Source:
+```{r}
+#| output: false
+
+# Loading the necessary packages
+library(tidyverse)
+library(ggplot2)
+
+# Loading the data into folder using Assingment02 method
+mobility_link <-
+  paste0("https://urban-data-catalog.s3.amazonaws.com/drupal-root-live/2026/06/03/11_mobility-metrics_county_longitudinal.csv")
+
+if (!file.exists("11_mobility-metrics_county_longitudinal.csv")) {
+  
+  download.file(mobility_link,
+                 destfile = "11_mobility-metrics_county_longitudinal.csv")
+} 
+
+# Loading the data into the global environment
+mobility <- read_csv("11_mobility-metrics_county_longitudinal.csv")
+
+# Taking a glimpse into the data
+glimpse(mobility)
+
+```
 
 ## Visualization 1
 
