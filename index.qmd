@@ -15,22 +15,22 @@ execute:
 
 **Data Source:**
 The data used in this analysis and visualizations come from the 'Urban 
-Institute's Upward Mobility Framework'. The data set showcases longitudinal 
+Institute's Upward Mobility Framework'. The dataset contains longitudinal 
 county-level measures related to economic and social conditions in relation 
-with upward mobility in the US.
+to upward mobility in the U.S.
 (URL:https://datacatalog.urban.org/dataset/mobility-metrics-data-upward-mobility-framework)
 
 ```{r}
 #| output: false
 
-# Instruction to not use using scientific numbers
+# Instruction to not use scientific notation
 options(scipen = 999)
 
 # Loading the necessary packages
 library(tidyverse)
 library(ggplot2)
 
-# Loading the data into folder using Assingment02 method
+# Loading the data into folder using Assignment02 method
 mobility_link <-
   paste0("https://urban-data-catalog.s3.amazonaws.com/drupal-root-live/2026/06/03/11_mobility-metrics_county_longitudinal.csv")
 
@@ -52,8 +52,8 @@ glimpse(mobility)
 
 ```{r}
 
-# Filtering NAs from the variable 'share_employed', calculating the mean by 
-# year and visualizing the average employment share over time, with a line graph
+# Filtering NAs from 'share_employed', calculating the mean by 
+# year and visualizing the average employment share over time with a line graph
 mobility |>
   filter(!is.na(share_employed)) |>
   group_by(year) |>
@@ -78,16 +78,15 @@ mobility |>
 ```
 
 **Interpretation:**
-The average employment share across U.S. counties increased from ~76% in 2014
-to >80% in 2024. The increase remains relatively consistent until 2019, 
-followed by a lower share in 2021 and renewed increase until 2024. Since the
-measure captures an unweighted county average, the visual highlights changes in 
-the average rather than the employment share of the total U.S. population. 
-While it suggests an improving employment situation, it cannot explain whether 
-these opportunities are distributed evenly across counties. Hence, policymakers 
+The average employment share across U.S. counties increased from ~76% in 2014 
+to >80% in 2024. The increase remains relatively consistent until 2019, then 
+falls in 2021 before rising again through 2024. Since the measure captures an 
+unweighted county average, the visual highlights changes in the average rather 
+than the employment share of the total U.S. population. Hence, while it 
+suggests an improving employment situation, it cannot explain whether these 
+opportunities are distributed evenly across counties. Therefore, policymakers 
 need to consider geographic differences to identify counties that may not have 
-equally benefited from the increase, instead of only relying on the overall 
-average.
+benefited equally from the increase, instead of relying on overall averages.
 
 
 ## Visualization 2 - Differences in Household Income Across U.S. Counties
@@ -95,7 +94,7 @@ average.
 ```{r}
 
 # Filtering for 2024 and non-missing pctl_income_50 values and visualizing
-# the distribution of household incomes with a histogram
+# the distribution of household incomes across counties with a histogram
 mobility |>
   filter(year == 2024,
          !is.na(pctl_income_50)
@@ -115,24 +114,23 @@ mobility |>
 
 **Interpretation:**
 In 2024, household income varied considerably across U.S. counties, while the 
-histogram suggests most counties being concentrated around the middle of the 
-distribution at around 60-70k. Importantly, the distribution is right-skewed, 
-with a small number of counties showcasing a substantial higher 50th-percentile 
-household income compared to most other counties. Even though having seen the 
-first visualization of the overall improvement in employment, this histogram 
-suggests that economic conditions differ considerably across counties. These 
-geographic differences suggest that general national trends alone may hide 
-important differences in local economic opportunities for citizens. For 
-policymakers, this showcases the necessity to consider local economic 
-conditions whenever they design policies aimed at improving economic 
-opportunities.
+histogram suggests most are concentrated around the center of the distribution 
+at around 60-70k. Importantly, the distribution is right-skewed, with a small 
+number showcasing a substantially higher 50th-percentile household income 
+compared to most other counties. Although the first visualization shows an 
+overall improvement in employment, this histogram suggests that economic 
+conditions differ considerably across counties. These geographic differences 
+suggest that general national trends alone may hide important differences in 
+local economic opportunities for citizens. For policymakers, this underlines 
+the necessity to consider local economic conditions when designing policies 
+aimed at improving economic opportunities.
 
 
 ## Visualization 3 - Employment and Household Income Across U.S. Counties
 
 ```{r}
 
-# Filtering for 2024 and non-missing 'shared_employed' and 'pctl_income_50' 
+# Filtering for 2024 and non-missing 'share_employed' and 'pctl_income_50' 
 # values, then visualizing their relationship 
 mobility |>
   filter(
@@ -141,7 +139,7 @@ mobility |>
     !is.na(pctl_income_50)
   ) |>
   ggplot(mapping = aes(x = share_employed, y = pctl_income_50)) +
-  geom_point(mapping= aes(
+  geom_point(mapping = aes(
     size = population,
     color = share_employed_quality,
     shape = pctl_income_50_quality), 
@@ -164,21 +162,23 @@ mobility |>
 ```
 
 **Interpretation:**
-The scatterplot highlights that in 2024 a positive relationship between 
+The scatterplot highlights that in 2024, a positive relationship between 
 employment and household income exists across U.S. counties. Counties with 
-higher employment-to-population ratios seem to have higher household incomes at 
-the 50th percentile. Nevertheless, there is variation in household incomes when 
-comparing counties with similar employment levels, thereby indicating that 
-solely employment cannot explain varying economic outcomes. Point size 
-represents county population, while color and shape indicate the data quality 
-of the employment and income measures. While the relationship cannot be 
-interpreted as causal, it suggests that policies targeting employment 
-opportunities need to consider other local factors, that may shape incomes. 
+higher employment-to-population ratios seem to have higher household incomes 
+at the 50th percentile. Nevertheless, there is variation in household incomes 
+when comparing counties with similar employment levels, thereby indicating that 
+employment cannot explain varying outcomes. Point size represents county 
+population, while color and shape indicate the data quality of the employment 
+and income measures. While the relationship cannot be interpreted as causal, it 
+suggests that policies targeting employment opportunities need to consider other 
+local factors that may influence incomes. 
 
 
 ## Visualization 4 - Housing Affordability Across Income Levels
 ```{r}
 
+# Reshaping the three housing affordability variables into a longer format to 
+# compare affordability ratios across AMI levels
 housing_longer <- pivot_longer(
   data = mobility,
   cols = c(
@@ -190,6 +190,7 @@ housing_longer <- pivot_longer(
   values_to = "affordability"
 )
 
+# Filtering for 2024 and non-missing 'affordability' values, calculating the mean by AMI level, and visualizing the average affordability ratios with a barplot
 housing_longer |>
   filter(
     year == 2024,
@@ -213,8 +214,28 @@ housing_longer |>
 ```
 
 **Interpretation:**
-The barplot shows the differences in the average housing affordability ratio across varying income levels in U.S. counties in 2024. The shown ratio is lowest for households at the 30% AMI level, increases at 50% AMI level, and slightly decreases at 80% AMI levels. This suggests rather than following the same pattern for all income groups, housing affordability conditions are different depending on household income levels. For instance, the lower ratio at 30% AMI level highlights that the lowest-income households are facing different housing affordability conditions than households at higher levels. For policymakers, these variations are crucial to determine policies aiming at improving access to affordable housing, while considering different income levels. 
+The barplot shows the differences in the average housing affordability ratio 
+across three income levels in U.S. counties in 2024. The shown ratio is lowest 
+for households at the 30% AMI level, increases at the 50% AMI level, and 
+slightly decreases at the 80% AMI level. This suggests that, rather than 
+following the same pattern for all income groups, housing affordability 
+conditions are different depending on household income levels. For instance, 
+the lower ratio at the 30% AMI level highlights that the lowest-income 
+households are facing different housing affordability conditions than those at 
+higher levels. For policymakers, these variations are crucial to determine 
+policies aiming at improving access to affordable housing, while considering 
+different income levels. 
 
 
 ## Conclusion 
-Overall, the visualizations highlight that economic opportunity varies greatly across U.S. counties and are impossible to be capture by one single indicator. While average employment has increased over the past years, great differences in household income remain across counties, and employment as an indicator cannot explain these differences alone. In addition, housing affordability conditions also highlighted variation across different income levels, hence adding another dimension for measuring and determine varying levels of economic opportunity for researchers and policymakers. Together, the visualizations underline the importance of considering a wide variety of local economic and social conditions when designing and passing policies aimed at improving upward mobility.
+Overall, the four visualizations highlight that economic opportunity varies 
+greatly across U.S. counties and cannot be captured by a single 
+indicator. While average employment has increased over the past years, great 
+differences in household income remain across counties, and employment as an 
+indicator cannot explain these differences alone. In addition, housing 
+affordability conditions also highlighted variation across income levels, hence
+adding another dimension for measuring and determining varying levels of 
+economic opportunity for researchers and policymakers. Together, the 
+visualizations underline the importance of considering a wide variety of local 
+economic and social conditions when designing and passing policies aimed at 
+improving upward mobility.

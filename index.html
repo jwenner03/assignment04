@@ -2234,16 +2234,16 @@ vertical-align: -.125em;
 
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
-<p><strong>Data Source:</strong> The data used in this analysis and visualizations come from the ‘Urban Institute’s Upward Mobility Framework’. The data set showcases longitudinal county-level measures related to economic and social conditions in relation with upward mobility in the US. (URL:https://datacatalog.urban.org/dataset/mobility-metrics-data-upward-mobility-framework)</p>
+<p><strong>Data Source:</strong> The data used in this analysis and visualizations come from the ‘Urban Institute’s Upward Mobility Framework’. The dataset contains longitudinal county-level measures related to economic and social conditions in relation to upward mobility in the U.S. (URL:https://datacatalog.urban.org/dataset/mobility-metrics-data-upward-mobility-framework)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instruction to not use using scientific numbers</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instruction to not use scientific notation</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading the necessary packages</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading the data into folder using Assingment02 method</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading the data into folder using Assignment02 method</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>mobility_link <span class="ot">&lt;-</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;https://urban-data-catalog.s3.amazonaws.com/drupal-root-live/2026/06/03/11_mobility-metrics_county_longitudinal.csv&quot;</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
@@ -2263,8 +2263,8 @@ vertical-align: -.125em;
 <section id="visualization-1---changes-in-employment-across-u.s.-counties" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-1---changes-in-employment-across-u.s.-counties">Visualization 1 - Changes in Employment Across U.S. Counties</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtering NAs from the variable &#39;share_employed&#39;, calculating the mean by </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># year and visualizing the average employment share over time, with a line graph</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtering NAs from &#39;share_employed&#39;, calculating the mean by </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># year and visualizing the average employment share over time with a line graph</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mobility <span class="sc">|&gt;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(share_employed)) <span class="sc">|&gt;</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
@@ -2293,13 +2293,13 @@ vertical-align: -.125em;
 </div>
 </div>
 </div>
-<p><strong>Interpretation:</strong> The average employment share across U.S. counties increased from ~76% in 2014 to &gt;80% in 2024. The increase remains relatively consistent until 2019, followed by a lower share in 2021 and renewed increase until 2024. Since the measure captures an unweighted county average, the visual highlights changes in the average rather than the employment share of the total U.S. population. While it suggests an improving employment situation, it cannot explain whether these opportunities are distributed evenly across counties. Hence, policymakers need to consider geographic differences to identify counties that may not have equally benefited from the increase, instead of only relying on the overall average.</p>
+<p><strong>Interpretation:</strong> The average employment share across U.S. counties increased from ~76% in 2014 to &gt;80% in 2024. The increase remains relatively consistent until 2019, then falls in 2021 before rising again through 2024. Since the measure captures an unweighted county average, the visual highlights changes in the average rather than the employment share of the total U.S. population. Hence, while it suggests an improving employment situation, it cannot explain whether these opportunities are distributed evenly across counties. Therefore, policymakers need to consider geographic differences to identify counties that may not have benefited equally from the increase, instead of relying on overall averages.</p>
 </section>
 <section id="visualization-2---differences-in-household-income-across-u.s.-counties" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-2---differences-in-household-income-across-u.s.-counties">Visualization 2 - Differences in Household Income Across U.S. Counties</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtering for 2024 and non-missing pctl_income_50 values and visualizing</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the distribution of household incomes with a histogram</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the distribution of household incomes across counties with a histogram</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mobility <span class="sc">|&gt;</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2024</span>,</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(pctl_income_50)</span>
@@ -2322,12 +2322,12 @@ vertical-align: -.125em;
 </div>
 </div>
 </div>
-<p><strong>Interpretation:</strong> In 2024, household income varied considerably across U.S. counties, while the histogram suggests most counties being concentrated around the middle of the distribution at around 60-70k. Importantly, the distribution is right-skewed, with a small number of counties showcasing a substantial higher 50th-percentile household income compared to most other counties. Even though having seen the first visualization of the overall improvement in employment, this histogram suggests that economic conditions differ considerably across counties. These geographic differences suggest that general national trends alone may hide important differences in local economic opportunities for citizens. For policymakers, this showcases the necessity to consider local economic conditions whenever they design policies aimed at improving economic opportunities.</p>
+<p><strong>Interpretation:</strong> In 2024, household income varied considerably across U.S. counties, while the histogram suggests most are concentrated around the center of the distribution at around 60-70k. Importantly, the distribution is right-skewed, with a small number showcasing a substantially higher 50th-percentile household income compared to most other counties. Although the first visualization shows an overall improvement in employment, this histogram suggests that economic conditions differ considerably across counties. These geographic differences suggest that general national trends alone may hide important differences in local economic opportunities for citizens. For policymakers, this underlines the necessity to consider local economic conditions when designing policies aimed at improving economic opportunities.</p>
 </section>
 <section id="visualization-3---employment-and-household-income-across-u.s.-counties" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-3---employment-and-household-income-across-u.s.-counties">Visualization 3 - Employment and Household Income Across U.S. Counties</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtering for 2024 and non-missing &#39;shared_employed&#39; and &#39;pctl_income_50&#39; </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtering for 2024 and non-missing &#39;share_employed&#39; and &#39;pctl_income_50&#39; </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># values, then visualizing their relationship </span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mobility <span class="sc">|&gt;</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
@@ -2336,7 +2336,7 @@ vertical-align: -.125em;
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(pctl_income_50)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> share_employed, <span class="at">y =</span> pctl_income_50)) <span class="sc">+</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping=</span> <span class="fu">aes</span>(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> population,</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> share_employed_quality,</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> pctl_income_50_quality), </span>
@@ -2363,42 +2363,45 @@ vertical-align: -.125em;
 </div>
 </div>
 </div>
-<p><strong>Interpretation:</strong> The scatterplot highlights that in 2024 a positive relationship between employment and household income exists across U.S. counties. Counties with higher employment-to-population ratios seem to have higher household incomes at the 50th percentile. Nevertheless, there is variation in household incomes when comparing counties with similar employment levels, thereby indicating that solely employment cannot explain varying economic outcomes. Point size represents county population, while color and shape indicate the data quality of the employment and income measures. While the relationship cannot be interpreted as causal, it suggests that policies targeting employment opportunities need to consider other local factors, that may shape incomes.</p>
+<p><strong>Interpretation:</strong> The scatterplot highlights that in 2024, a positive relationship between employment and household income exists across U.S. counties. Counties with higher employment-to-population ratios seem to have higher household incomes at the 50th percentile. Nevertheless, there is variation in household incomes when comparing counties with similar employment levels, thereby indicating that employment cannot explain varying outcomes. Point size represents county population, while color and shape indicate the data quality of the employment and income measures. While the relationship cannot be interpreted as causal, it suggests that policies targeting employment opportunities need to consider other local factors that may influence incomes.</p>
 </section>
 <section id="visualization-4---housing-affordability-across-income-levels" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-4---housing-affordability-across-income-levels">Visualization 4 - Housing Affordability Across Income Levels</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>housing_longer <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> mobility,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    share_affordable_30_ami,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    share_affordable_50_ami,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    share_affordable_80_ami</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;ami_level&quot;</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;affordability&quot;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>housing_longer <span class="sc">|&gt;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2024</span>,</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(affordability)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ami_level) <span class="sc">|&gt;</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_affordability =</span> <span class="fu">mean</span>(affordability)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ami_level, <span class="at">y =</span> mean_affordability, <span class="at">fill =</span> ami_level)) <span class="sc">+</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Housing Affordability Across Income Levels&quot;</span>,</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Average county affordability ratio by AMI level, 2024&quot;</span>,</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Area Median Income (AMI) level&quot;</span>,</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average housing affordability ratio&quot;</span>,</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;AMI level&quot;</span>,</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Source: Urban Institute, Upward Mobility Framework.&quot;</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshaping the three housing affordability variables into a longer format to </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># compare affordability ratios across AMI levels</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>housing_longer <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> mobility,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    share_affordable_30_ami,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    share_affordable_50_ami,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    share_affordable_80_ami</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;ami_level&quot;</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;affordability&quot;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtering for 2024 and non-missing &#39;affordability&#39; values, calculating the mean by AMI level, and visualizing the average affordability ratios with a barplot</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>housing_longer <span class="sc">|&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2024</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(affordability)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ami_level) <span class="sc">|&gt;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_affordability =</span> <span class="fu">mean</span>(affordability)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> ami_level, <span class="at">y =</span> mean_affordability, <span class="at">fill =</span> ami_level)) <span class="sc">+</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Housing Affordability Across Income Levels&quot;</span>,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Average county affordability ratio by AMI level, 2024&quot;</span>,</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Area Median Income (AMI) level&quot;</span>,</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average housing affordability ratio&quot;</span>,</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;AMI level&quot;</span>,</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Source: Urban Institute, Upward Mobility Framework.&quot;</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2407,11 +2410,11 @@ vertical-align: -.125em;
 </div>
 </div>
 </div>
-<p><strong>Interpretation:</strong> The barplot shows the differences in the average housing affordability ratio across varying income levels in U.S. counties in 2024. The shown ratio is lowest for households at the 30% AMI level, increases at 50% AMI level, and slightly decreases at 80% AMI levels. This suggests rather than following the same pattern for all income groups, housing affordability conditions are different depending on household income levels. For instance, the lower ratio at 30% AMI level highlights that the lowest-income households are facing different housing affordability conditions than households at higher levels. For policymakers, these variations are crucial to determine policies aiming at improving access to affordable housing, while considering different income levels.</p>
+<p><strong>Interpretation:</strong> The barplot shows the differences in the average housing affordability ratio across three income levels in U.S. counties in 2024. The shown ratio is lowest for households at the 30% AMI level, increases at the 50% AMI level, and slightly decreases at the 80% AMI level. This suggests that, rather than following the same pattern for all income groups, housing affordability conditions are different depending on household income levels. For instance, the lower ratio at the 30% AMI level highlights that the lowest-income households are facing different housing affordability conditions than those at higher levels. For policymakers, these variations are crucial to determine policies aiming at improving access to affordable housing, while considering different income levels.</p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Overall, the visualizations highlight that economic opportunity varies greatly across U.S. counties and are impossible to be capture by one single indicator. While average employment has increased over the past years, great differences in household income remain across counties, and employment as an indicator cannot explain these differences alone. In addition, housing affordability conditions also highlighted variation across different income levels, hence adding another dimension for measuring and determine varying levels of economic opportunity for researchers and policymakers. Together, the visualizations underline the importance of considering a wide variety of local economic and social conditions when designing and passing policies aimed at improving upward mobility.</p>
+<p>Overall, the four visualizations highlight that economic opportunity varies greatly across U.S. counties and cannot be captured by a single indicator. While average employment has increased over the past years, great differences in household income remain across counties, and employment as an indicator cannot explain these differences alone. In addition, housing affordability conditions also highlighted variation across income levels, hence adding another dimension for measuring and determining varying levels of economic opportunity for researchers and policymakers. Together, the visualizations underline the importance of considering a wide variety of local economic and social conditions when designing and passing policies aimed at improving upward mobility.</p>
 </section>
 
 </main>
