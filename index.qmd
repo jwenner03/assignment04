@@ -13,7 +13,13 @@ execute:
 
 ## Data
 
-Data Source:
+**Data Source:**
+The data used in this analysis and visualizations come from the 'Urban 
+Institute's Upward Mobility Framework'. The data set showcases longitudinal 
+county-level measures related to economic and social conditions in relation 
+with upward mobility in the US.
+(URL:https://datacatalog.urban.org/dataset/mobility-metrics-data-upward-mobility-framework)
+
 ```{r}
 #| output: false
 
@@ -39,13 +45,46 @@ glimpse(mobility)
 
 ```
 
-## Visualization 1
+## Visualization 1 - Changes in Employment Across U.S. Counties
 
 ```{r}
+
+# Filtering NAs from the variable 'share_employed', calculating the mean by 
+# year and visualizing the average employment share over time 
+mobility |>
+  filter(!is.na(share_employed)) |>
+  group_by(year) |>
+  summarize(
+    mean_share_employed = mean(share_employed)
+  ) |>
+  ggplot(mapping = aes(x = year, y = mean_share_employed)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_y_continuous(
+    labels = scales::label_percent()
+  ) +
+  scale_x_continuous(
+    breaks = 2014:2024
+  ) +
+  labs(
+    title = "Average Employment Share Across U.S. Counties",
+    subtitle = "Unweighted mean county employment share, 2014-2024",    
+    x = "Year", 
+    y = "Average employment share",
+    caption = "Source: Urban Institute, Upward Mobility Framework. No data available for 2020" 
+  ) +
+  theme_minimal()
 
 ```
 
 **Interpretation:**
+The average employment share across U.S. counties increased from ~76% in 2014
+to >80% in 2024. The increase remains relatively consistent until 2019, 
+followed by a lower share in 2021 and renewed increase until 2024. Since the
+measure captures an unweighted county average, the visual highlights changes in the
+average rather than the employment share of the total U.S. population. While
+it suggests an improving employment siutation, it cannot explain whether these
+opportunities are distributed evenly across counties.
 
 
 ## Visualization 2
