@@ -1,0 +1,51 @@
+---
+title: "Assignment04 - Global Economic Development"
+subtitle: "Economic Growth, Living Standard, and Development Across Countries"
+author: "Jonas Wenner (jw2558)"
+format: 
+  html:
+    embed-resources: true
+editor: source
+execute: 
+  warning: false
+  message: false
+---
+
+## Data
+
+Data Source:
+
+## Visualization 1
+
+```{r}
+
+```
+
+**Interpretation:**
+
+
+## Visualization 2
+
+```{r}
+
+```
+
+**Interpretation:**
+
+## Visualization 3
+
+```{r}
+
+```
+
+**Interpretation:**
+
+## Visualization 4
+```{r}
+
+```
+
+**Interpretation:**
+
+## Conclusion 
+
