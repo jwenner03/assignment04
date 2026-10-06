@@ -23,6 +23,8 @@ with upward mobility in the US.
 ```{r}
 #| output: false
 
+options(scipen = 999)
+
 # Loading the necessary packages
 library(tidyverse)
 library(ggplot2)
@@ -81,27 +83,92 @@ mobility |>
 The average employment share across U.S. counties increased from ~76% in 2014
 to >80% in 2024. The increase remains relatively consistent until 2019, 
 followed by a lower share in 2021 and renewed increase until 2024. Since the
-measure captures an unweighted county average, the visual highlights changes in the
-average rather than the employment share of the total U.S. population. While
-it suggests an improving employment siutation, it cannot explain whether these
-opportunities are distributed evenly across counties.
+measure captures an unweighted county average, the visual highlights changes in 
+the average rather than the employment share of the total U.S. population. 
+While it suggests an improving employment situation, it cannot explain whether 
+these opportunities are distributed evenly across counties. Hence, policymakers 
+need to consider geographic differences to identify counties that may not have 
+equally benefited from the increase, instead of only relying on the overall 
+average.
 
 
-## Visualization 2
+## Visualization 2 - Differences in Household Income Across U.S. Counties
 
 ```{r}
+
+# Filtering for 2024 and non-missing pctl_income_50 values and visualizing
+# the distribution of household incomes across U.S. counties
+mobility |>
+  filter(year == 2024,
+         !is.na(pctl_income_50)
+         ) |>
+  ggplot(mapping = aes(x = pctl_income_50)) +
+  geom_histogram(binwidth = 5000, fill = "orange") +
+  labs(
+    title = "Distribution of Household Income Across U.S. Counties",
+    subtitle = "Household income at the 50th percentile, 2024",
+    x = "Household income at the 50th percentile (USD)",
+    y = "Number of counties",
+    caption = "Source: Urban Institute, Upward Mobility Framework." 
+  ) +
+  theme_minimal()
+  
+```
+
+**Interpretation:**
+In 2024, household income varied considerably across U.S. counties, while the 
+histogram suggests most counties being concentrated around the middle of the 
+distribution at around 60-70k. Importantly, the distribution is right-skewed, 
+with a small number of counties showcasing a substantial higher 50th-percentile 
+household income compared to most other counties. Even though having seen the 
+first visualization of the overall improvement in employment, this histogram 
+suggests that economic conditions differ considerably across counties. These 
+geographic differences suggest that general national trends alone may hide 
+important differences in local economic opportunities for citizens. For 
+policymakers, this showcases the necessity to consider local economic 
+conditions whenever they design policies aimed at improving economic 
+opportunities.
+
+
+## Visualization 3 - Employment and Household Income Across U.S. Counties
+
+```{r}
+
+#
+mobility |>
+  filter(
+    year == 2024,
+    !is.na(share_employed),
+    !is.na(pctl_income_50)
+  ) |>
+  ggplot(mapping = aes(x = share_employed, y = pctl_income_50)) +
+  geom_point(mapping= aes(size = population), alpha = 0.4) +
+  geom_smooth(method = "lm") +
+  scale_x_continuous(
+    labels = scales::label_percent()
+  ) +
+  labs(
+    title = "Employment and Household Income Across U.S. Counties",
+    subtitle = "Employment-to-population ratio and 50th-percentile household income, 2024",
+    x = "Employment-to-population ratio (ages 25-54)",
+    y = "Household income at the 50th percentile (USD)",
+    caption = "Source: Urban Institute, Upward Mobility Framework" 
+  ) +
+  theme_minimal()
 
 ```
 
 **Interpretation:**
+The scatterplot highlights that in 2024 a positive relationship between 
+employment and household income exists across U.S. counties. Counties with 
+higher employment-to-population seem to have higher household incomes at the 
+50th percentile. Nevertheless, there is variation in household incomes when 
+comparing counties with similar employment levels, thereby indicating that 
+solely employment cannot explain varying economic outcomes. While the 
+relationship cannot be interpreted as causal, it suggests that policies 
+targeting employment opportunities need to consider other local factors, that 
+may shape incomes. 
 
-## Visualization 3
-
-```{r}
-
-```
-
-**Interpretation:**
 
 ## Visualization 4
 ```{r}
