@@ -1,5 +1,5 @@
 # Assignment 04: Data Visualization, Quarto, and Git
 
-**Global Economic Development**
+**Economic Opportunity and Upward Mobility in the United States**
 
 Jonas Wenner (jw2558)
